@@ -1,9 +1,13 @@
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Runner {
 	JFrame frame= new JFrame();
+	Panel panel= new Panel();
 	final int width= 1000;
-	final int height= 800;
+	final int height= 666;
 			
 public static void main(String[] args) {
 	Runner runner= new Runner();
@@ -11,9 +15,11 @@ public static void main(String[] args) {
 }
 void setup() {
 	frame.setVisible(true);
-	frame.setSize(width,height);
+	frame.getContentPane().setPreferredSize(new Dimension(width, height));
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	frame.pack();
+
+	frame.add(panel);
+	frame.pack();	
 	
 	//need to add more things like start game for anything to run
 }
