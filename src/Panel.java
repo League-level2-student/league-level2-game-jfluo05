@@ -13,6 +13,11 @@ import java.awt.Graphics;
 public class Panel extends JPanel implements ActionListener, KeyListener{
 
 	public static BufferedImage classroom;
+	public static BufferedImage door;
+	public static BufferedImage teacherDesk;
+	public static BufferedImage math;
+	public static BufferedImage doorknobLock;
+	
 	public static boolean needImage = true;
 	public static boolean gotImage = false;	
 	Font titleFont;
@@ -60,26 +65,63 @@ public class Panel extends JPanel implements ActionListener, KeyListener{
 	  void loadImage(String imageFile) { 
 		  if (needImage) { 
 			  try {
-				  classroom = ImageIO.read(this.getClass().getResourceAsStream(imageFile)); gotImage = true; }
+			  classroom = ImageIO.read(this.getClass().getResourceAsStream(imageFile)); gotImage = true; 
+			  door = ImageIO.read(this.getClass().getResourceAsStream(imageFile)); gotImage = true;
+			  doorknobLock = ImageIO.read(this.getClass().getResourceAsStream(imageFile)); gotImage = true; 
+			  math = ImageIO.read(this.getClass().getResourceAsStream(imageFile)); gotImage = true; }
+			  
 			  catch (Exception e) {
 	  
-	  } 
-			  needImage = false; } 
-		  
-		  repaint(); 
+	   
+		  needImage = false; }
+		   }
+		  repaint();
 		  }
 	 
 	  
 	public void paintComponent(Graphics g){
-		if (gotImage) {
-			g.drawImage(classroom, 0, 0,1000, 666, null);
-		} else {
-			g.setColor(Color.BLUE);
-			g.fillRect(1000, 1000, WIDTH, HEIGHT);
+		
+		/*
+		 * if (gotImage) { g.drawImage(classroom, 0, 0,1000, 666, null); } else {
+		 * g.setColor(Color.BLUE); g.fillRect(1000, 1000, WIDTH, HEIGHT); }
+		 */
+		
+		if(currentState == TITLE_SCREEN){
+			System.out.println("title screen");
+		    drawTitleScreen(g);
+		}else if(currentState == CLASSROOM){
+			System.out.println("class screen");
+		    drawClassroomScreen(g);
+		}else if(currentState == TEACHER_DESK){
+		    drawTeacherScreen(g);
+		}else if(currentState == DOOR){
+		    drawDoorScreen(g);
+		}else if(currentState == FAIL_OR_PASS){
+		    drawSuccessScreen(g);
+		    //drawFailScreen(g);
 		}
 	}
 	
-void drawTitleScreen() {
+
+void updateClassroomScreen() {
+	
+}
+void updateTeacherScreen() {
+	
+}
+
+void updateDoorScreen() {
+	
+}
+void updateSuccessScreen() {
+	
+}
+void updateFailScreen() {
+	
+}
+//draw methods
+
+void drawTitleScreen(Graphics g) {
     
     g.setColor(Color.YELLOW);
 
@@ -91,26 +133,31 @@ void drawTitleScreen() {
     
     g.setColor(Color.YELLOW);
 	g.setFont(pressEnterToStartFont);
-    g.drawString("Press ENTER to start", 86, 370);
+    g.drawString("Press ENTER to start", 86, 150);
     
     g.setColor(Color.YELLOW);
 	g.setFont(iForInstructionsFont);
-    g.drawString("Press i for instructions", 50, 500);
+    g.drawString("Press i for instructions", 50, 200);
 }
 
-void drawClassroomScreen() {
+
+
+void drawClassroomScreen(Graphics g) {
+	if (gotImage) {
+		g.drawImage(classroom, 0, 0,1000, 666, null);
+	} else {
+		g.setColor(Color.BLUE);
+		g.fillRect(1000, 1000, WIDTH, HEIGHT);
+	}
+}
+void drawTeacherScreen(Graphics g) {
 	
 }
-void drawTeacherScreen() {
+
+void drawDoorScreen(Graphics g) {
 	
 }
-void drawStudentScreen() {
-	
-}
-void drawDoorScreen() {
-	
-}
-void drawSuccessScreen() {
+void drawSuccessScreen(Graphics g) {
 	g.setColor(Color.GREEN);
 
 	g.fillRect(0, 0, 1000, 666);  
@@ -126,7 +173,7 @@ void drawSuccessScreen() {
 	g.setFont(restartFont);
     g.drawString("Press ENTER to restart", 20, 450);
 }
-void drawFailScreen() {
+void drawFailScreen(Graphics g) {
 	g.setColor(Color.RED);
 
 	g.fillRect(0, 0, 1000, 666);  
@@ -151,7 +198,22 @@ public void keyTyped(KeyEvent e) {
 @Override
 public void keyPressed(KeyEvent e) {
 	// TODO Auto-generated method stub
+	if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+	    if (currentState == TITLE_SCREEN) {
+	        currentState = CLASSROOM;
+	    } else if(currentState == CLASSROOM){
+            currentState = TEACHER_DESK;
+    }else if(currentState == TEACHER_DESK){
+            currentState = MATH_WORKSHEET;
+    }else if(currentState == MATH_WORKSHEET){
+        currentState = DOOR;
+}else if(currentState == DOOR){
+    currentState = FAIL_OR_PASS;
+}else if(currentState == FAIL_OR_PASS){
+    currentState = TITLE_SCREEN;
+}}
 	
+	repaint();
 }
 @Override
 public void keyReleased(KeyEvent e) {

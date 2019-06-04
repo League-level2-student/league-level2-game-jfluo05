@@ -21,6 +21,7 @@ void setup() {
 	frame.add(panel);
 	frame.pack();	
 	
+	 frame.addKeyListener(panel);
 	//need to add more things like start game for anything to run
 }
 }
