@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -11,13 +13,17 @@ import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Graphics;
 
-public class Panel extends JPanel implements ActionListener, KeyListener {
+public class Panel extends JPanel implements ActionListener, KeyListener, MouseListener {
 
 	public static BufferedImage classroom;
 	public static BufferedImage door;
 	public static BufferedImage teacherDesk;
 	public static BufferedImage math;
 	public static BufferedImage doorknobLock;
+	
+	Room classRoom= new Room("Classroom.jpg");
+	Room deskRoom= new Room("teacherDesk.jpg");
+	Room doorRoom= new Room("door.jpg");
 
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
@@ -44,43 +50,43 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		iForInstructionsFont = new Font("Courier", Font.PLAIN, 20);
 		gameOver = new Font("Courier", Font.BOLD, 48);
 		restartFont = new Font("Courier", Font.PLAIN, 44);
-		loadImages();
+		//loadImages();
 
 	}
 
-	void loadImages() {
-
-			try {
-				classroom = ImageIO.read(this.getClass().getResourceAsStream("Classroom.jpg"));
-				teacherDesk = ImageIO.read(this.getClass().getResourceAsStream("teacherDesk.jpg"));
-				door = ImageIO.read(this.getClass().getResourceAsStream("door.jpg"));
-				doorknobLock = ImageIO.read(this.getClass().getResourceAsStream("doorknobLockjpg.jpg"));
-				math = ImageIO.read(this.getClass().getResourceAsStream("math.jpg"));
-			}
-
-			catch (Exception e) {
-System.out.println("image error");
-			}
-
-
-	}
+	/*
+	 * void loadImages() {
+	 * 
+	 * try { classroom =
+	 * ImageIO.read(this.getClass().getResourceAsStream("Classroom.jpg"));
+	 * teacherDesk =
+	 * ImageIO.read(this.getClass().getResourceAsStream("teacherDesk.jpg")); door =
+	 * ImageIO.read(this.getClass().getResourceAsStream("door.jpg")); doorknobLock =
+	 * ImageIO.read(this.getClass().getResourceAsStream("doorknobLockjpg.jpg"));
+	 * math = ImageIO.read(this.getClass().getResourceAsStream("math.jpg")); }
+	 * 
+	 * catch (Exception e) { System.out.println("image error"); }
+	 * 
+	 * 
+	 * }
+	 */
 
 	public void paintComponent(Graphics g) {
 
 		if (currentState == TITLE_SCREEN) {
-			System.out.println("title screen");
+			
 			drawTitleScreen(g);
 		} else if (currentState == CLASSROOM) {
-			System.out.println("class screen");
+			
 			drawClassroomScreen(g);
 		} else if (currentState == TEACHER_DESK) {
-			System.out.println("teacher desk");
+			
 			drawTeacherScreen(g);
 		} else if (currentState == DOOR) {
-			System.out.println("door");
+		
 			drawDoorScreen(g);
 		} else if (currentState == FAIL_OR_PASS) {
-			System.out.println("fail or pass");
+			
 			drawSuccessScreen(g);
 			drawFailScreen(g);
 		}
@@ -127,17 +133,17 @@ System.out.println("image error");
 	}
 
 	void drawClassroomScreen(Graphics g) {
-		g.drawImage(classroom, 0, 0, 1000, 666, null);
+		g.drawImage(classRoom.image, 0, 0, 1000, 666, null);
 
 	}
 
 	void drawTeacherScreen(Graphics g) {
-		g.drawImage(teacherDesk, 0, 0, 1000, 666, null);
+		g.drawImage(deskRoom.image, 0, 0, 1000, 666, null);
 		
 	}
 
 	void drawDoorScreen(Graphics g) {
-		g.drawImage(door, 0, 0, 1000, 666, null);
+		g.drawImage(doorRoom.image, 0, 0, 1000, 666, null);
 		
 	}
 
@@ -210,5 +216,36 @@ System.out.println("image error");
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println(e.getX()+", "+e.getY());
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

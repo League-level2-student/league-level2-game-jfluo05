@@ -1,13 +1,13 @@
 import java.awt.Rectangle;
 
-public class Items {
+public class InventoryItems {
 	int x;
 	int y;
 	int width;
 	int height;
 	Rectangle collisionBox= new Rectangle();
 	
-	public Items(int x,int y, int width,int height){
+	public InventoryItems(int x,int y, int width,int height){
 		this.x=x;
 		this.y=y;
 		this.width=width;

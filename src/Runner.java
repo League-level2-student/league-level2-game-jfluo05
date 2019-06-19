@@ -17,6 +17,7 @@ void setup() {
 	frame.setVisible(true);
 	frame.getContentPane().setPreferredSize(new Dimension(width, height));
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	frame.addMouseListener(panel);
 
 	frame.add(panel);
 	frame.pack();	
