@@ -21,7 +21,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 	public static BufferedImage math;
 	public static BufferedImage doorknobLock;
 	
-	Room classRoom= new Room("Classroom.jpg");
+	Classroom classRoom= new Classroom();
 	Room deskRoom= new Room("teacherDesk.jpg");
 	Room doorRoom= new Room("door.jpg");
 
@@ -134,7 +134,12 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 
 	void drawClassroomScreen(Graphics g) {
 		g.drawImage(classRoom.image, 0, 0, 1000, 666, null);
+		for(InventoryItems i: classRoom.items) {
+			g.setColor(Color.red);
+		g.drawRect(i.collisionBox.x, i.collisionBox.y, i.collisionBox.width,i.collisionBox.height);
 
+		}
+		System.out.println("projector");
 	}
 
 	void drawTeacherScreen(Graphics g) {

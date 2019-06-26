@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class Room {
+public  class Room {
 
 	public BufferedImage image;
-	ArrayList<InventoryItems> item = new ArrayList<InventoryItems>();
+	ArrayList<InventoryItems> items = new ArrayList<InventoryItems>();
 	
 	Room(String imageName){
 		
