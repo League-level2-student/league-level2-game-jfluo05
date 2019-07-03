@@ -20,9 +20,11 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 	public static BufferedImage teacherDesk;
 	public static BufferedImage math;
 	public static BufferedImage doorknobLock;
+	Room currentRoom;
 	
 	Classroom classRoom= new Classroom();
-	Room deskRoom= new Room("teacherDesk.jpg");
+	TeacherDesk deskRoom= new TeacherDesk();
+	 
 	Room doorRoom= new Room("door.jpg");
 
 	public static boolean needImage = true;
@@ -76,19 +78,14 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 		if (currentState == TITLE_SCREEN) {
 			
 			drawTitleScreen(g);
-		} else if (currentState == CLASSROOM) {
-			
-			drawClassroomScreen(g);
-		} else if (currentState == TEACHER_DESK) {
-			
-			drawTeacherScreen(g);
-		} else if (currentState == DOOR) {
 		
-			drawDoorScreen(g);
 		} else if (currentState == FAIL_OR_PASS) {
 			
 			drawSuccessScreen(g);
 			drawFailScreen(g);
+		}
+		else {
+			currentRoom.draw(g);
 		}
 	}
 
@@ -134,9 +131,9 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 
 	void drawClassroomScreen(Graphics g) {
 		g.drawImage(classRoom.image, 0, 0, 1000, 666, null);
-		for(InventoryItems i: classRoom.items) {
+		for(InventoryItem i: classRoom.items) {
 			g.setColor(Color.red);
-		g.drawRect(i.collisionBox.x, i.collisionBox.y, i.collisionBox.width,i.collisionBox.height);
+		g.drawRect(i.x, i.y, i.width,i.height);
 
 		}
 		System.out.println("projector");
@@ -144,6 +141,10 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 
 	void drawTeacherScreen(Graphics g) {
 		g.drawImage(deskRoom.image, 0, 0, 1000, 666, null);
+		for(InventoryItem i: deskRoom.items) {
+			g.setColor(Color.red);
+			g.drawRect(i.x, i.y, i.width,i.height);
+		}
 		
 	}
 
@@ -195,12 +196,15 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState == TITLE_SCREEN) {
 				currentState = CLASSROOM;
+				currentRoom=new Classroom();
 			} else if (currentState == CLASSROOM) {
 				currentState = TEACHER_DESK;
+				currentRoom=new TeacherDesk();
 			} else if (currentState == TEACHER_DESK) {
 			//	currentState = MATH_WORKSHEET;
 		//	} else if (currentState == MATH_WORKSHEET) {
 				currentState = DOOR;
+				currentRoom=new Door();
 			} else if (currentState == DOOR) {
 				currentState = FAIL_OR_PASS;
 			} else if (currentState == FAIL_OR_PASS) {
@@ -228,6 +232,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 		// TODO Auto-generated method stub
 		System.out.println(e.getX()+", "+e.getY());
 
+		
 	}
 
 	@Override

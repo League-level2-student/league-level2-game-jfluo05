@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,7 +9,7 @@ import javax.imageio.ImageIO;
 public  class Room {
 
 	public BufferedImage image;
-	ArrayList<InventoryItems> items = new ArrayList<InventoryItems>();
+	ArrayList<InventoryItem> items = new ArrayList<InventoryItem>();
 	
 	Room(String imageName){
 		
@@ -19,5 +21,12 @@ public  class Room {
 		}
 		
 	}
-	
+	void draw(Graphics g) {
+		g.drawImage(image, 0, 0, 1000, 666, null);
+		for(InventoryItem i: items) {
+			g.setColor(Color.red);
+		g.drawRect(i.x, i.y, i.width,i.height);
+
+		}
+	}
 }
