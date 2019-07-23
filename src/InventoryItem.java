@@ -19,7 +19,11 @@ public class InventoryItem {
 	
 	}
 	
-	boolean isOnItem(MouseEvent e) {
+	public String toString() {
+		return "inventory item "+description;
+	}
+	
+	boolean isOnItem(int x, int y) {
 		return false;
 		
 	}

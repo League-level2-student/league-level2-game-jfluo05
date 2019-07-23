@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Graphics;
@@ -82,7 +83,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 		} else if (currentState == FAIL_OR_PASS) {
 			
 			drawSuccessScreen(g);
-			drawFailScreen(g);
+		//	drawFailScreen(g);
 		}
 		else {
 			currentRoom.draw(g);
@@ -196,22 +197,36 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState == TITLE_SCREEN) {
 				currentState = CLASSROOM;
-				currentRoom=new Classroom();
-			} else if (currentState == CLASSROOM) {
+				currentRoom=new Classroom();}
+			else if (currentState == FAIL_OR_PASS) {
+						currentState = TITLE_SCREEN;
+			} 
+			}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			 if (currentState == CLASSROOM) {
 				currentState = TEACHER_DESK;
 				currentRoom=new TeacherDesk();
 			} else if (currentState == TEACHER_DESK) {
-			//	currentState = MATH_WORKSHEET;
-		//	} else if (currentState == MATH_WORKSHEET) {
 				currentState = DOOR;
 				currentRoom=new Door();
-			} else if (currentState == DOOR) {
-				currentState = FAIL_OR_PASS;
-			} else if (currentState == FAIL_OR_PASS) {
-				currentState = TITLE_SCREEN;
-			}
+			} 
 		}
-
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			 if (currentState == DOOR) {
+				currentState = TEACHER_DESK;
+				currentRoom=new TeacherDesk();
+			} else if (currentState == TEACHER_DESK) {
+				currentState = CLASSROOM;
+				currentRoom=new Classroom();
+			} 
+		}
+		if (e.getKeyCode() == KeyEvent.VK_1) {
+			if (currentState == DOOR) {
+				currentState = FAIL_OR_PASS;
+					}
+		}if (e.getKeyCode() == KeyEvent.VK_I) {
+			JOptionPane.showMessageDialog(null, "-Use the right and left arrow keys to change rooms \n-Click on the items that you would like to investigate \n-You can click i at any time during the game");
+		}
 		repaint();
 	}
 

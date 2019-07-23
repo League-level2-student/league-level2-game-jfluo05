@@ -29,4 +29,13 @@ public  class Room {
 
 		}
 	}
+	InventoryItem clickedItem(int x, int y) {
+		int i;
+		for (i=0;i<items.size();i++) {
+			if (items.get(i).isOnItem(x, y)){
+				return items.remove(i);
+			}
+		}
+		return null;
+	}
 }
