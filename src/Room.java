@@ -24,8 +24,8 @@ public  class Room {
 	void draw(Graphics g) {
 		g.drawImage(image, 0, 0, 1000, 666, null);
 		for(InventoryItem i: items) {
-			g.setColor(Color.red);
-		g.drawRect(i.x, i.y, i.width,i.height);
+			//g.setColor(Color.red);
+		//g.drawRect(i.x, i.y-24, i.width,i.height);
 
 		}
 	}
@@ -37,5 +37,7 @@ public  class Room {
 			}
 		}
 		return null;
+		
 	}
+	
 }

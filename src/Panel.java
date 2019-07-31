@@ -133,9 +133,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 	void drawClassroomScreen(Graphics g) {
 		g.drawImage(classRoom.image, 0, 0, 1000, 666, null);
 		for(InventoryItem i: classRoom.items) {
-			g.setColor(Color.red);
-		g.drawRect(i.x, i.y, i.width,i.height);
-
+	
 		}
 		System.out.println("projector");
 	}
@@ -143,8 +141,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 	void drawTeacherScreen(Graphics g) {
 		g.drawImage(deskRoom.image, 0, 0, 1000, 666, null);
 		for(InventoryItem i: deskRoom.items) {
-			g.setColor(Color.red);
-			g.drawRect(i.x, i.y, i.width,i.height);
+		
 		}
 		
 	}
@@ -246,8 +243,12 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println(e.getX()+", "+e.getY());
-
 		
+		InventoryItem item= currentRoom.clickedItem(e.getX(), e.getY());
+		
+		if (item != null) {
+			JOptionPane.showMessageDialog(null, item.clue);
+		}
 	}
 
 	@Override

@@ -5,7 +5,7 @@ public class TeacherDesk extends Room{
 		super("teacherDesk.jpg");
 		
 		//wednesday bin
-		items.add(new InventoryItem ("wednesday bin",640,58-24,41,72,2));
+		items.add(new InventoryItem ("wednesday bin",640,58,41,72,2));
 		
 		/*
 		 * //monday tuesday bin items.add(new InventoryItem

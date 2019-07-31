@@ -8,6 +8,7 @@ public class InventoryItem {
 	int height;
 	String description;
 	int num;
+	String clue;
 	
 	public InventoryItem(String description, int x,int y, int width,int height, int num){
 		this.description=description;
@@ -16,15 +17,19 @@ public class InventoryItem {
 		this.width=width;
 		this.height=height;
 		this.num=num;
-	
+		 
+		clue=description;
 	}
 	
 	public String toString() {
 		return "inventory item "+description;
 	}
 	
-	boolean isOnItem(int x, int y) {
-		return false;
-		
+	boolean isOnItem(int mouseX, int mouseY) {
+		if (mouseX>=x && mouseX<=x+ width && mouseY>=y && mouseY<=y+ height) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }
