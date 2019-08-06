@@ -30,8 +30,10 @@ public  class Room {
 		}
 	}
 	InventoryItem clickedItem(int x, int y) {
+	
 		int i;
 		for (i=0;i<items.size();i++) {
+			System.out.println("click x= "+x+" click y= "+ y+ "item x= "+items.get(i).x+ "item y= "+items.get(i).y);
 			if (items.get(i).isOnItem(x, y)){
 				return items.remove(i);
 			}
