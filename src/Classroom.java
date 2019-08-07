@@ -7,7 +7,7 @@ public class Classroom extends Room{
 		super("Classroom.jpg");
 		
 		//white board
-		items.add(new InventoryItem ("Dear sub, today is wednesday, so please have the class turn in their homework in the hw bin for the corresponding day",102,179,205,143,1));
+		items.add(new InventoryItem ("Dear sub, today is wednesday, so please have the class turn in their homework in the hw bin",102,179,205,143,1));
 		//clock:
 		items.add(new InventoryItem ("It doesn't fall from the tree",345,151,27,23,4));
 		//computer:

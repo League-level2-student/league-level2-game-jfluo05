@@ -5,7 +5,7 @@ public class TeacherDesk extends Room{
 		super("teacherDesk.jpg");
 		
 		//wednesday bin
-		items.add(new InventoryItem ("Around the world, some kids don't have a good education",640,58,41,72,2));
+		items.add(new InventoryItem ("Please show the kids a 3D model of a world map",640,58,41,72,2));
 		//trash
 		items.add(new InventoryItem ("Apple has come up with iPhones, iPads, iPods, airpods, apple watches, and most importantly ________",59,463,187,685,6));
 		/*

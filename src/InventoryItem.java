@@ -9,6 +9,8 @@ public class InventoryItem {
 	String description;
 	int num;
 	String clue;
+	boolean input=false;
+	String answer= "15160514";
 	
 	public InventoryItem(String description, int x,int y, int width,int height, int num){
 		this.description=description;
@@ -23,6 +25,11 @@ public class InventoryItem {
 	
 	public String toString() {
 		return "inventory item "+description;
+	}
+	
+	public boolean isCorrectAnswer(String guess) {
+		return guess.equalsIgnoreCase(answer);
+		
 	}
 	
 	boolean isOnItem(int mouseX, int mouseY) {

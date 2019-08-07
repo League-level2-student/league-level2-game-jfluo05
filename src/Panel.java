@@ -127,7 +127,15 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 
 		g.setColor(Color.BLACK);
 		g.setFont(iForInstructionsFont);
-		g.drawString("Press i for instructions", 340, 310);
+		g.drawString("Press i for instructions", 340, 175);
+		
+		g.setColor(Color.BLACK);
+		g.setFont(iForInstructionsFont);
+		g.drawString("Description: You are the sub of a first grade classroom and you accidentally", 30, 350);
+		g.drawString("lock yourself in the classroom. On the door is a 8 digit combination lock.", 30, 380);
+		g.drawString("But class starts in 5 minutes, so in order to open the door before class starts, ", 30, 410);
+		g.drawString("you have to go through a set of clues and riddles to find the password to ", 30, 440);
+		g.drawString("the door.Good luck!", 30, 470);
 	}
 
 	void drawClassroomScreen(Graphics g) {
@@ -222,7 +230,9 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 				currentState = FAIL_OR_PASS;
 					}
 		}if (e.getKeyCode() == KeyEvent.VK_I) {
-			JOptionPane.showMessageDialog(null, "-Use the right and left arrow keys to change rooms \n-Click on the items that you would like to investigate \n-You can click i at any time during the game");
+			JOptionPane.showMessageDialog(null, "-Start off by clicking the white board for your first clue-Use the right and left arrow keys to change rooms \n-Click on the items that you would like to investigate \n-You have to pay attention to the clues because it will only show up once\n-You can click i at any time during the game");
+		}if (e.getKeyCode() == KeyEvent.VK_D) {
+			JOptionPane.showMessageDialog(null, "Description: You are the sub of a first grade classroom and you accidentally \nlock yourself in the classroom. On the door is a 4 digit combination lock.\nBut class starts in 5 minutes, so in order to open the door before class starts, \nyou have to go through a set of clues and riddles to find the password to the door.\nGood luck!");
 		}
 		repaint();
 	}
@@ -247,7 +257,15 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 		InventoryItem item= currentRoom.clickedItem(e.getX(), e.getY());
 		
 		if (item != null) {
-			JOptionPane.showMessageDialog(null, item.clue);
+			if(!item.input) {
+				JOptionPane.showMessageDialog(null, item.clue);
+			}else {
+			String guess=JOptionPane.showInputDialog(null, item.clue);
+			
+			if(item.isCorrectAnswer(guess)) {
+				currentState=FAIL_OR_PASS;
+			}
+			}
 		}
 	}
 
