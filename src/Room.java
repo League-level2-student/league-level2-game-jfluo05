@@ -8,6 +8,8 @@ import javax.imageio.ImageIO;
 
 public  class Room {
 
+	
+	boolean allItemsAdded=false;
 	public BufferedImage image;
 	ArrayList<InventoryItem> items = new ArrayList<InventoryItem>();
 	
@@ -33,13 +35,16 @@ public  class Room {
 	
 		int i;
 		for (i=0;i<items.size();i++) {
-			System.out.println("click x= "+x+" click y= "+ y+ "item x= "+items.get(i).x+ "item y= "+items.get(i).y);
+		//	System.out.println("click x= "+x+" click y= "+ y+ "item x= "+items.get(i).x+ "item y= "+items.get(i).y);
 			if (items.get(i).isOnItem(x, y)){
 				return items.remove(i);
 			}
 		}
 		return null;
 		
+	}
+	void addRemainingItems() {
+		allItemsAdded=true;
 	}
 	
 }

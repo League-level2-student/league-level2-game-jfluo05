@@ -22,6 +22,9 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 	public static BufferedImage math;
 	public static BufferedImage doorknobLock;
 	Room currentRoom;
+	int clickerCount=40;
+	
+	
 	
 	Classroom classRoom= new Classroom();
 	TeacherDesk deskRoom= new TeacherDesk();
@@ -230,7 +233,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 				currentState = FAIL_OR_PASS;
 					}
 		}if (e.getKeyCode() == KeyEvent.VK_I) {
-			JOptionPane.showMessageDialog(null, "-Start off by clicking the white board for your first clue-Use the right and left arrow keys to change rooms \n-Click on the items that you would like to investigate \n-You have to pay attention to the clues because it will only show up once\n-You can click i at any time during the game");
+			JOptionPane.showMessageDialog(null, "-Start off by clicking the white board for your first clue\n-Use the right and left arrow keys to change rooms \n-Click on the items that you would like to investigate \n-Pay attention to the clues because it might only show up once\n-Don't hesitate to click on anything more than once/n-You can click i at any time during the game\n-You can also click d for the description of the game at any time.");
 		}if (e.getKeyCode() == KeyEvent.VK_D) {
 			JOptionPane.showMessageDialog(null, "Description: You are the sub of a first grade classroom and you accidentally \nlock yourself in the classroom. On the door is a 4 digit combination lock.\nBut class starts in 5 minutes, so in order to open the door before class starts, \nyou have to go through a set of clues and riddles to find the password to the door.\nGood luck!");
 		}
@@ -254,19 +257,26 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 		// TODO Auto-generated method stub
 		System.out.println(e.getX()+", "+e.getY());
 		
-		InventoryItem item= currentRoom.clickedItem(e.getX(), e.getY());
-		
+//System.out.println(currentRoom);
+		InventoryItem item = currentRoom.clickedItem(e.getX(), e.getY());
+
 		if (item != null) {
-			if(!item.input) {
+			if (!item.input) {
 				JOptionPane.showMessageDialog(null, item.clue);
-			}else {
-			String guess=JOptionPane.showInputDialog(null, item.clue);
-			
-			if(item.isCorrectAnswer(guess)) {
-				currentState=FAIL_OR_PASS;
-			}
+				currentRoom.addRemainingItems();
+			} else {
+				String guess = JOptionPane.showInputDialog(null, item.clue);
+
+				if (item.isCorrectAnswer(guess)) {
+					currentState = FAIL_OR_PASS;
+					repaint();
+				} else {
+					JOptionPane.showMessageDialog(null, "INCORRECT!");
+				}
 			}
 		}
+	clickerCount=clickerCount-1;
+	System.out.println(clickerCount);
 	}
 
 	@Override

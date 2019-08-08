@@ -22,6 +22,7 @@ public class InventoryItem {
 		 
 		clue=description;
 	}
+	//InventoryItem liveItem= new InventoryItem(clue, x, 0, 0, 0, 0);
 	
 	public String toString() {
 		return "inventory item "+description;
