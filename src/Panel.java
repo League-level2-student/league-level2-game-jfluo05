@@ -23,7 +23,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 	public static BufferedImage doorknobLock;
 	Room currentRoom;
 	int clickerCount=20;
-	
+	int infoPanel=1000;
 	
 	
 	Classroom classRoom= new Classroom();
@@ -93,7 +93,10 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 		}
 		else {
 			currentRoom.draw(g);
+			drawInfoPanel(g);
 		}
+		
+		
 	}
 
 	void updateClassroomScreen() {
@@ -126,14 +129,15 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 		g.setColor(Color.BLACK);
 		g.setFont(titleFont);
 		g.drawString("CLASSROOM ESCAPE", 250, 100);
+		
 
 		g.setColor(Color.BLACK);
 		g.setFont(pressEnterToStartFont);
-		g.drawString("Press ENTER to start", 310, 250);
+		g.drawString("Press ENTER to start", 310, 175);
 
 		g.setColor(Color.BLACK);
 		g.setFont(iForInstructionsFont);
-		g.drawString("Press i for instructions", 340, 175);
+		g.drawString("Press i for instructions", 340, 260);
 		
 		g.setColor(Color.BLACK);
 		g.setFont(iForInstructionsFont);
@@ -146,25 +150,38 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 
 	void drawClassroomScreen(Graphics g) {
 		g.drawImage(classRoom.image, 0, 0, 1000, 666, null);
-		for(InventoryItem i: classRoom.items) {
-	
-		}
 		System.out.println("projector");
 	}
 
 	void drawTeacherScreen(Graphics g) {
 		g.drawImage(deskRoom.image, 0, 0, 1000, 666, null);
-		for(InventoryItem i: deskRoom.items) {
-		
-		}
-		
 	}
 
 	void drawDoorScreen(Graphics g) {
 		g.drawImage(doorRoom.image, 0, 0, 1000, 666, null);
 		
 	}
-
+void drawInfoPanel(Graphics g) {
+	g.setColor(Color.BLACK);
+	g.setFont(titleFont);
+	g.drawString("Key", infoPanel+150, 100);
+	g.drawString("___", infoPanel+150, 95);
+	
+	g.setColor(Color.BLACK);
+	g.setFont(iForInstructionsFont);
+	g.drawString("Clicker Count: "+clickerCount, infoPanel+50, 170);
+	g.drawString("Click D for description", infoPanel+50, 250);
+	g.drawString("Click I for instructions", infoPanel+50, 290);
+	g.drawString("Click H for a hint", infoPanel+50, 330);
+	
+	//PRINT TIMER
+		/*
+		 * for(int i=0; i<300; i--) { g.drawString("Timer: "+i, infoPanel+50, 210); }
+		 */
+	
+	repaint();
+}
+	
 	void drawSuccessScreen(Graphics g) {
 		g.setColor(Color.GREEN);
 
@@ -243,6 +260,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 			JOptionPane.showMessageDialog(null, "Clicker Count: "+clickerCount);
 		}else if (e.getKeyCode() == KeyEvent.VK_H) {
 			String clueNumber=JOptionPane.showInputDialog(null, "HINT: Which clue number do you need help on? (You can only get 2 hints!)");
+		}else if (e.getKeyCode() == KeyEvent.VK_K) {
+				String clueNumber=JOptionPane.showInputDialog(null, "Click C: clicker count");
 			if(clueNumber.equals("1")) {
 				JOptionPane.showMessageDialog(null, "Look for a bin that has a W on it.");
 			}else if(clueNumber.equals("2")) {

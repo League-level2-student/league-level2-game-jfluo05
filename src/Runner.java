@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 public class Runner {
 	JFrame frame= new JFrame();
 	Panel panel= new Panel();
-	final int width= 1000;
+	final int width= 1390;
 	final int height= 666;
 			
 public static void main(String[] args) {
