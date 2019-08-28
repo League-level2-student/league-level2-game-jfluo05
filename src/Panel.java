@@ -11,6 +11,8 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
+
 import java.awt.Graphics;
 import java.awt.Graphics;
 
@@ -24,7 +26,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 	Room currentRoom;
 	int clickerCount=20;
 	int infoPanel=1000;
-	
+	Timer minuteTimer;
+	int timeLimit=300;
 	
 	Classroom classRoom= new Classroom();
 	TeacherDesk deskRoom= new TeacherDesk();
@@ -58,7 +61,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 		gameOver = new Font("Courier", Font.BOLD, 48);
 		restartFont = new Font("Courier", Font.PLAIN, 44);
 		//loadImages();
-
+		minuteTimer = new Timer(1000,this);
+		
 	}
 
 	/*
@@ -81,7 +85,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 	public void paintComponent(Graphics g) {
 
 		if (currentState == TITLE_SCREEN) {
-			
+			drawInfoPanel(g);
+
 			drawTitleScreen(g);
 		
 		} else if (currentState == SUCCESS_SCREEN) {
@@ -135,17 +140,26 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 		g.setFont(pressEnterToStartFont);
 		g.drawString("Press ENTER to start", 310, 175);
 
+		/*
+		 * g.setColor(Color.BLACK); g.setFont(iForInstructionsFont);
+		 * g.drawString("Press i for instructions", 340, 260);
+		 * 
+		 */
 		g.setColor(Color.BLACK);
 		g.setFont(iForInstructionsFont);
-		g.drawString("Press i for instructions", 340, 260);
+		g.drawString("Description: You are the sub of a first grade classroom and you accidentally", 30, 250);
+		g.drawString("lock yourself in the classroom. On the door is a 8 digit combination lock.", 30, 280);
+		g.drawString("But class starts in 5 minutes, so in order to open the door before class starts, ", 30, 310);
+		g.drawString("you have to go through a set of clues and riddles to find the password to ", 30, 340);
+		g.drawString("the door. Good luck!", 30, 370);
 		
-		g.setColor(Color.BLACK);
-		g.setFont(iForInstructionsFont);
-		g.drawString("Description: You are the sub of a first grade classroom and you accidentally", 30, 350);
-		g.drawString("lock yourself in the classroom. On the door is a 8 digit combination lock.", 30, 380);
-		g.drawString("But class starts in 5 minutes, so in order to open the door before class starts, ", 30, 410);
-		g.drawString("you have to go through a set of clues and riddles to find the password to ", 30, 440);
-		g.drawString("the door. Good luck!", 30, 470);
+		g.drawString("Instructions:", 30, 430);
+		g.drawString("- Click the whiteboard for your first clue", 30, 460);
+		g.drawString("- Use the arrow keys to change rooms", 30, 490);
+		g.drawString("- Click on items you would like to investigate", 30, 520);
+		g.drawString("- reference the game panel on the right hand side to find a key", 30, 550);
+		g.drawString("- Keep in mind of your clue number in case you need a hint", 30, 580);
+
 	}
 
 	void drawClassroomScreen(Graphics g) {
@@ -169,15 +183,14 @@ void drawInfoPanel(Graphics g) {
 	
 	g.setColor(Color.BLACK);
 	g.setFont(iForInstructionsFont);
-	g.drawString("Clicker Count: "+clickerCount, infoPanel+50, 170);
+	g.drawString(String.valueOf(timeLimit),infoPanel+50, 170);
+	g.drawString("seconds left",infoPanel+95, 170);
+	g.drawString("Clicker Count: "+clickerCount, infoPanel+50, 210);
 	g.drawString("Click D for description", infoPanel+50, 250);
 	g.drawString("Click I for instructions", infoPanel+50, 290);
 	g.drawString("Click H for a hint", infoPanel+50, 330);
 	
-	//PRINT TIMER
-		/*
-		 * for(int i=0; i<300; i--) { g.drawString("Timer: "+i, infoPanel+50, 210); }
-		 */
+
 	
 	repaint();
 }
@@ -225,7 +238,9 @@ void drawInfoPanel(Graphics g) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState == TITLE_SCREEN) {
 				currentState = CLASSROOM;
-				currentRoom=new Classroom();}
+				currentRoom=new Classroom();
+				minuteTimer.start();
+			}
 			else if (currentState == SUCCESS_SCREEN) {
 						currentState = TITLE_SCREEN;
 			}
@@ -259,9 +274,8 @@ void drawInfoPanel(Graphics g) {
 		}else if (e.getKeyCode() == KeyEvent.VK_C) {
 			JOptionPane.showMessageDialog(null, "Clicker Count: "+clickerCount);
 		}else if (e.getKeyCode() == KeyEvent.VK_H) {
-			String clueNumber=JOptionPane.showInputDialog(null, "HINT: Which clue number do you need help on? (You can only get 2 hints!)");
-		}else if (e.getKeyCode() == KeyEvent.VK_K) {
-				String clueNumber=JOptionPane.showInputDialog(null, "Click C: clicker count");
+			String clueNumber=JOptionPane.showInputDialog(null, "HINT: Which clue number do you need help on?");
+			
 			if(clueNumber.equals("1")) {
 				JOptionPane.showMessageDialog(null, "Look for a bin that has a W on it.");
 			}else if(clueNumber.equals("2")) {
@@ -296,7 +310,7 @@ void drawInfoPanel(Graphics g) {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-
+		timeLimit=timeLimit-1;
 	}
 
 	@Override
