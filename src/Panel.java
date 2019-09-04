@@ -104,27 +104,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 		
 	}
 
-	void updateClassroomScreen() {
-
-	}
-
-	void updateTeacherScreen() {
-
-	}
-
-	void updateDoorScreen() {
-
-	}
-
-	void updateSuccessScreen() {
-
-	}
-
-	void updateFailScreen() {
-
-	}
-//draw methods
-
 	void drawTitleScreen(Graphics g) {
 
 		g.setColor(Color.YELLOW);
@@ -139,26 +118,21 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 		g.setColor(Color.BLACK);
 		g.setFont(pressEnterToStartFont);
 		g.drawString("Press ENTER to start", 310, 175);
-
-		/*
-		 * g.setColor(Color.BLACK); g.setFont(iForInstructionsFont);
-		 * g.drawString("Press i for instructions", 340, 260);
-		 * 
-		 */
+		
 		g.setColor(Color.BLACK);
 		g.setFont(iForInstructionsFont);
-		g.drawString("Description: You are the sub of a first grade classroom and you accidentally", 30, 250);
-		g.drawString("lock yourself in the classroom. On the door is a 8 digit combination lock.", 30, 280);
-		g.drawString("But class starts in 5 minutes, so in order to open the door before class starts, ", 30, 310);
-		g.drawString("you have to go through a set of clues and riddles to find the password to ", 30, 340);
-		g.drawString("the door. Good luck!", 30, 370);
+		g.drawString("Description: You are the substitute teacher of a first grade class and you ", 30, 250);
+		g.drawString("happen to accidentally lock yourself in the classroom. On the door is an ", 30, 280);
+		g.drawString("8 NUMBER combination lock. Unfortunately, class starts in 5 minutes, so in ", 30, 310);
+		g.drawString("order to open the door before class starts, you have to go through a set of", 30, 340);
+		g.drawString("clues and riddles to find the password to the door. Good luck!", 30, 370);
 		
-		g.drawString("Instructions:", 30, 430);
-		g.drawString("- Click the whiteboard for your first clue", 30, 460);
+		g.drawString("Instructions:", 30, 460);
 		g.drawString("- Use the arrow keys to change rooms", 30, 490);
 		g.drawString("- Click on items you would like to investigate", 30, 520);
-		g.drawString("- reference the game panel on the right hand side to find a key", 30, 550);
+		g.drawString("- Reference the game panel on the right hand side to find a key", 30, 550);
 		g.drawString("- Keep in mind of your clue number in case you need a hint", 30, 580);
+		g.drawString("- You only have 5 minutes, and 20 clicks to crack the code!", 30, 610);
 
 	}
 
@@ -190,7 +164,9 @@ void drawInfoPanel(Graphics g) {
 	g.drawString("Click I for instructions", infoPanel+50, 290);
 	g.drawString("Click H for a hint", infoPanel+50, 330);
 	
-
+	if(timeLimit<=0) {
+		changeState(6);
+	}
 	
 	repaint();
 }
@@ -240,6 +216,7 @@ void drawInfoPanel(Graphics g) {
 				currentState = CLASSROOM;
 				currentRoom=new Classroom();
 				minuteTimer.start();
+				JOptionPane.showMessageDialog(null, "Click the whiteboard to start!");
 			}
 			else if (currentState == SUCCESS_SCREEN) {
 						currentState = TITLE_SCREEN;
@@ -267,10 +244,12 @@ void drawInfoPanel(Graphics g) {
 			if (currentState == DOOR) {
 				currentState = SUCCESS_SCREEN;
 					}
+			
+		
 		}if (e.getKeyCode() == KeyEvent.VK_I) {
-			JOptionPane.showMessageDialog(null, "-Start off by clicking the white board for your first clue\n-Use the right and left arrow keys to change rooms \n-Click on the items that you would like to investigate \n-Pay attention to the clues because it might only show up once\n-Don't hesitate to click on anything more than once/n-You can click i at any time during the game\n-You can also click d for the description of the game at any time.");
+			JOptionPane.showMessageDialog(null, "Instructions-Use the arrow keys to change rooms\n- Click on items you would like to investigate\n-Reference the game panel on the right hand side to find a key\n- Keep in mind of your clue number in case you need a hint/n-You can click i at any time during the game\n-You only have 5 minutes, and 20 clicks to crack the code!");
 		}else if (e.getKeyCode() == KeyEvent.VK_D) {
-			JOptionPane.showMessageDialog(null, "Description: You are the sub of a first grade classroom and you accidentally \nlock yourself in the classroom. On the door is a 4 digit combination lock.\nBut class starts in 5 minutes, so in order to open the door before class starts, \nyou have to go through a set of clues and riddles to find the password to the door.\nGood luck!");
+			JOptionPane.showMessageDialog(null, "Description: You are the substitute teacher of a first grade class \nand you happen to accidentally lock yourself in the classroom. On \nthe door is an 8 number combination lock. Unfortunately, class starts \nin 5 minutes, so in order to open the door before class starts, you \nhave to go through a set of clues and riddles to find the password to the door.\nGood luck!");
 		}else if (e.getKeyCode() == KeyEvent.VK_C) {
 			JOptionPane.showMessageDialog(null, "Clicker Count: "+clickerCount);
 		}else if (e.getKeyCode() == KeyEvent.VK_H) {
@@ -279,19 +258,19 @@ void drawInfoPanel(Graphics g) {
 			if(clueNumber.equals("1")) {
 				JOptionPane.showMessageDialog(null, "Look for a bin that has a W on it.");
 			}else if(clueNumber.equals("2")) {
-				JOptionPane.showMessageDialog(null, "Look for a globe");
+				JOptionPane.showMessageDialog(null, "Look for a globe.");
 			}else if(clueNumber.equals("3")) {
-				JOptionPane.showMessageDialog(null, "Look for something that tells the time");
+				JOptionPane.showMessageDialog(null, "Look for something that tells the time.");
 			}else if(clueNumber.equals("4")) {
-				JOptionPane.showMessageDialog(null, "Look for something that a steriotypical teacher might eat");
+				JOptionPane.showMessageDialog(null, "Look for something that a steriotypical teacher might eat.");
 			}else if(clueNumber.equals("5")) {
 				JOptionPane.showMessageDialog(null, "Where do you throw trash away?");
 			}else if(clueNumber.equals("6")) {
-				JOptionPane.showMessageDialog(null, "The riddle has something to do with an electronic device in the first room");
+				JOptionPane.showMessageDialog(null, "The riddle has something to do with an electronic device in the first room.");
 			}else if(clueNumber.equals("7")) {
-				JOptionPane.showMessageDialog(null, "Look for a stack of books");
+				JOptionPane.showMessageDialog(null, "Look for a stack of books.");
 			}else if(clueNumber.equals("8")) {
-				JOptionPane.showMessageDialog(null, "Correspond each individual letter to a number (eg. a=1, b=2, c=3...)");
+				JOptionPane.showMessageDialog(null, "Correspond each individual letter to a number (eg. a=1, b=2, c=3...).");
 			}
 		}
 		repaint();
@@ -338,6 +317,11 @@ void drawInfoPanel(Graphics g) {
 	if(clickerCount<=0) {
 		changeState(6);
 	}
+	}
+
+	private InventoryItem currentRoom(int x, int y) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
