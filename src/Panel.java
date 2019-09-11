@@ -177,15 +177,11 @@ void drawInfoPanel(Graphics g) {
 		g.fillRect(0, 0, 1000, 666);
 		g.setColor(Color.BLACK);
 		g.setFont(gameOver);
-		g.drawString("You succeeded!", 250, 100);
-
-		g.setColor(Color.BLACK);
-		g.setFont(pressEnterToStartFont);
-		g.drawString("", 200, 300);
-
-		g.setColor(Color.BLACK);
-		g.setFont(restartFont);
-		g.drawString("Press ENTER to restart", 230, 450);
+		g.drawString("You succeeded!", 250, 250);
+		/*
+		 * g.setColor(Color.BLACK); g.setFont(restartFont);
+		 * g.drawString("Press ENTER to restart", 230, 450);
+		 */
 	}
 
 	 void drawFailScreen(Graphics g) {
@@ -214,12 +210,15 @@ void drawInfoPanel(Graphics g) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState == TITLE_SCREEN) {
 				currentState = CLASSROOM;
+				
 				currentRoom=new Classroom();
 				minuteTimer.start();
 				JOptionPane.showMessageDialog(null, "Click the whiteboard to start!");
 			}
-			else if (currentState == SUCCESS_SCREEN) {
+			else if (currentState == FAIL_SCREEN) {
 						currentState = TITLE_SCREEN;
+						clickerCount= 20;
+						timeLimit=300;
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
