@@ -12,7 +12,7 @@ public class Classroom extends Room{
 		// clock:
 		items.add(new InventoryItem("Clue 4: A(n) ______ doesn't fall far from the tree", 345, 151, 27, 23, 4));
 		// computer:
-		items.add(new InventoryItem("Clue 7: Don't forget the read aloud after lunch! Read the blue book on the desk.", 313, 277, 49, 26,7));
+		items.add(new InventoryItem("Clue 7: Don't forget the read aloud after lunch! Read the blue/grey book on the desk.", 313, 277, 49, 26,7));
 	}
 	
 /* * void addRemainingItems() { super.addRemainingItems(); //clock: items.add(new

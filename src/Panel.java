@@ -21,8 +21,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 	public static BufferedImage classroom;
 	public static BufferedImage door;
 	public static BufferedImage teacherDesk;
-	public static BufferedImage math;
 	public static BufferedImage doorknobLock;
+	public static BufferedImage hallway;
 	Room currentRoom;
 	int clickerCount=20;
 	int infoPanel=1000;
@@ -31,7 +31,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 	
 	Classroom classRoom= new Classroom();
 	TeacherDesk deskRoom= new TeacherDesk();
-	 
+	 Room hallwayRoom= new Room ("hallway.jpg");
 	Room doorRoom= new Room("door.jpg");
 
 	public static boolean needImage = true;
@@ -54,7 +54,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 	int currentState = TITLE_SCREEN;
 
 	Panel() {
-
+		
+		currentRoom=new Classroom();	
 		titleFont = new Font("Courier", Font.PLAIN, 48);
 		pressEnterToStartFont = new Font("Courier", Font.PLAIN, 30);
 		iForInstructionsFont = new Font("Courier", Font.PLAIN, 20);
@@ -125,14 +126,13 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 		g.drawString("happen to accidentally lock yourself in the classroom. On the door is an ", 30, 280);
 		g.drawString("8 NUMBER combination lock. Unfortunately, class starts in 5 minutes, so in ", 30, 310);
 		g.drawString("order to open the door before class starts, you have to go through a set of", 30, 340);
-		g.drawString("clues and riddles to find the password to the door. Good luck!", 30, 370);
+		g.drawString("clues and riddles to find the password to the door. There are 3 rooms you can", 30, 370);
+		g.drawString("investigate. Good luck!", 30, 400);
 		
 		g.drawString("Instructions:", 30, 460);
-		g.drawString("- Use the arrow keys to change rooms", 30, 490);
+		g.drawString("- Use the ARROW keys to change rooms", 30, 490);
 		g.drawString("- Click on items you would like to investigate", 30, 520);
-		g.drawString("- Reference the game panel on the right hand side to find a key", 30, 550);
-		g.drawString("- Keep in mind of your clue number in case you need a hint", 30, 580);
-		g.drawString("- You only have 5 minutes, and 20 clicks to crack the code!", 30, 610);
+		g.drawString("- Keep in mind of your clue number in case you need a hint", 30, 550);
 
 	}
 
@@ -172,12 +172,11 @@ void drawInfoPanel(Graphics g) {
 }
 	
 	void drawSuccessScreen(Graphics g) {
-		g.setColor(Color.GREEN);
-
-		g.fillRect(0, 0, 1000, 666);
+		g.drawImage(hallwayRoom.image, 0, 0, 1000, 666, null);
+		
 		g.setColor(Color.BLACK);
 		g.setFont(gameOver);
-		g.drawString("You succeeded!", 250, 250);
+		g.drawString("You succeeded!", 250, 100);
 		/*
 		 * g.setColor(Color.BLACK); g.setFont(restartFont);
 		 * g.drawString("Press ENTER to restart", 230, 450);
@@ -211,7 +210,7 @@ void drawInfoPanel(Graphics g) {
 			if (currentState == TITLE_SCREEN) {
 				currentState = CLASSROOM;
 				
-				currentRoom=new Classroom();
+				
 				minuteTimer.start();
 				JOptionPane.showMessageDialog(null, "Click the whiteboard to start!");
 			}
